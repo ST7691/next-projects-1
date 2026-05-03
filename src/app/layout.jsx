@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./Componnets/Header";
+import Header from "@/Components/Header";
+import CardProvider from "@/Context/CardProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +26,13 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* header */}
         <Header></Header>
-        <main className="px-5 py-8 ">{children}</main>
+        <main className="px-5 py-8 ">
+          <CardProvider>
+            {children}
+          </CardProvider>
+        </main>
       </body>
     </html>
   );
