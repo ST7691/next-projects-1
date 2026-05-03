@@ -3,19 +3,19 @@ import Title from "@/Components/Title";
 import React from "react";
 import CartItems from "./CartItems";
 import InputSearch from "@/Components/InputSearch";
-import style from './food.module.css'
+import style from "./food.module.css";
 
 const getFoods = async (search) => {
   const res = await fetch(
     `https://taxi-kitchen-api.vercel.app/api/v1/foods/random?search=${search}`,
-    {next:{revalidate:5}}
+    { next: { revalidate: 5 } },
   );
   const data = await res.json();
- await new Promise((resolve) => setTimeout(resolve, 1500));
+  await new Promise((resolve) => setTimeout(resolve, 1500));
   return data.foods || [];
 };
 const Food = async ({ searchParams }) => {
-  const { search = ''} = await searchParams;
+  const { search = "" } = await searchParams;
   // console.log(data)
   const foods = await getFoods(search);
   return (
@@ -28,18 +28,25 @@ const Food = async ({ searchParams }) => {
       <div className={`my-3 ${style.bg}`}>
         <InputSearch></InputSearch>
       </div>
-      <div className="flex gap-5 ">
-        {/* food container */}
-        <div className=" flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-          {foods.map((food) => (
-            <FoodCard key={food.id} food={food}></FoodCard>
-          ))}
+      <div className="flex flex-col lg:flex-row gap-5 ">
+        {/* 🛒 Cart (TOP in mobile) */}
+        <div className="order-1 lg:order-2 w-full lg:w-[260px] border rounded-xl p-4 h-fit sticky top-5 bg-black shadow-md">
+          <h2 className="text-xl md:text-2xl font-bold">Cart Items</h2>
+          <hr className="my-2" />
+          <CartItems />
         </div>
-        {/*  */}
-        <div className=" border-1 w-[250px] rounded-xl p-4 ">
-          <h2 className="text-2xl font-bold"> Cart Items </h2>
-          <hr />
-          <CartItems></CartItems>
+
+        {/* food container */}
+        <div className="order-2 lg:order-1 flex-1">
+          {foods.length === 0 ? (
+            <p className="text-center text-2xl text-gray-500 mt-10">No food found 😢</p>
+          ) : (
+            <div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+            {foods.map((food) => (
+              <FoodCard key={food.id} food={food}></FoodCard>
+            ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
