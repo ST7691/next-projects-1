@@ -13,7 +13,7 @@ export default function Home() {
         </h2>
       </div>
       <div>
-        <button className="btn">Lets Explore</button>
+        <button className="btn-btn">Lets Explore</button>
       </div>
     </div>
   );

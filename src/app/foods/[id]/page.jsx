@@ -2,6 +2,32 @@ import React from "react";
 export function generateStaticParams() {
   return [{ id: "52904" }, { id: "52812" }, { id: "52895" }];
 }
+// meta data id
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  const res = await fetch(
+    `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`,
+  );
+
+  const { details = {} } = await res.json();
+
+  return {
+    title: details?.title || "Food Details",
+    generator: 'Next.js',
+    applicationName: 'Next.js',
+    referrer: 'origin-when-cross-origin',
+    keywords: ['Next.js', 'React', 'JavaScript'],
+    authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
+    creator: 'Jiachi Liu',
+    publisher: 'Sebastian Markbåge',
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    }
+  }
+}
 const getSingleFood = async (id) => {
   const res = await fetch(
     `https://taxi-kitchen-api.vercel.app/api/v1/foods/${id}`,

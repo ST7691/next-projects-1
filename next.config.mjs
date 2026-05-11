@@ -2,6 +2,25 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  // next img
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.themealdb.com",
+        // port: "",
+        pathname: "/images/media/**",
+        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+        // port: "",
+        pathname: "/api/portraits/**",
+        search: "",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

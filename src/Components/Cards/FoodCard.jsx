@@ -10,11 +10,18 @@ const FoodCard = ({ food }) => {
     <div className="bg-black shadow-md border-1 rounded-2xl overflow-hidden hover:shadow-xl transition duration-300">
       {/* Image */}
       <div className="relative">
-        <img
+        {/* <img
           src={foodImg}
           alt={title}
           className="w-full h-52 object-cover rounded-lg"
-        />
+        /> */}
+        <Image
+          src={foodImg}
+          alt={title}
+          className="w-full h-52 object-cover rounded-lg"
+          width={300}
+          height={150}
+        ></Image>
       </div>
 
       {/* Content */}
