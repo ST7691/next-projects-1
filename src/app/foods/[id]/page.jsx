@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import React from "react";
 export function generateStaticParams() {
   return [{ id: "52904" }, { id: "52812" }, { id: "52895" }];
@@ -14,19 +15,19 @@ export async function generateMetadata({ params }) {
 
   return {
     title: details?.title || "Food Details",
-    generator: 'Next.js',
-    applicationName: 'Next.js',
-    referrer: 'origin-when-cross-origin',
-    keywords: ['Next.js', 'React', 'JavaScript'],
-    authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
-    creator: 'Jiachi Liu',
-    publisher: 'Sebastian Markbåge',
+    generator: "Next.js",
+    applicationName: "Next.js",
+    referrer: "origin-when-cross-origin",
+    keywords: ["Next.js", "React", "JavaScript"],
+    authors: [{ name: "Seb" }, { name: "Josh", url: "https://nextjs.org" }],
+    creator: "Jiachi Liu",
+    publisher: "Sebastian Markbåge",
     formatDetection: {
       email: false,
       address: false,
       telephone: false,
-    }
-  }
+    },
+  };
 }
 const getSingleFood = async (id) => {
   const res = await fetch(
@@ -45,12 +46,13 @@ const page = async ({ params }) => {
 
   const food = await getSingleFood(id);
 
-  if (!food) {
-    return (
-      <h2 className="text-center mt-10 text-xl font-semibold">
-        Food Not Found
-      </h2>
-    );
+  if (!food.title) {
+    redirect("/foods");
+    // return (
+    //   <h2 className="text-center mt-10 text-xl font-semibold">
+    //     Food Not Found
+    //   </h2>
+    // );
   }
 
   return (
@@ -62,9 +64,9 @@ const page = async ({ params }) => {
         <img
           src={food.foodImg}
           alt={food.title}
-          className="w-full h-52 object-cover rounded-lg"
-        />
+          className="w-full h-52 object-cover rounded-lg"/>
       </div>
+
       {/* Content */}
       <div className="p-4 space-y-3">
         <h1 className="text-xl font-semibold">{food.title}</h1>

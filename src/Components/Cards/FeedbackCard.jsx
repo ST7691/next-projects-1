@@ -9,6 +9,7 @@ const FeedbackCard = ({ feedback, onDelete, onUpdate }) => {
 
   // safe date parsing
   const safeDate = date ? new Date(date) : new Date();
+  
 
   return (
     <div className="border border-gray-800 rounded-xl p-5 shadow-md bg-black space-y-4 hover:shadow-lg transition mt-5">

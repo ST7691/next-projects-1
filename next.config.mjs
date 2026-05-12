@@ -21,6 +21,16 @@ const nextConfig = {
       },
     ],
   },
+  // redirects
+  async redirects() {
+    return [
+      {
+        source: "/food-details/:id",
+        destination: "/foods/:id",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

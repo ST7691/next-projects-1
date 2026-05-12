@@ -4,10 +4,12 @@
 import React, { useState } from "react";
 import { SendHorizonal } from "lucide-react";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const FeedbackForm = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +24,16 @@ const FeedbackForm = () => {
         date: new Date(),
       };
 
-      const res = await fetch("http://localhost:3000/api/feedback/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_server}/api/feedback`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(feedbackData),
         },
-        body: JSON.stringify(feedbackData),
-      });
+      );
 
       const data = await res.json();
 
@@ -45,7 +50,7 @@ const FeedbackForm = () => {
           timer: 1200,
           //   confirmButtonColor: "#2563eb",
         });
-
+        router.push("/feedback");
         setMessage("");
       }
     } catch (error) {
